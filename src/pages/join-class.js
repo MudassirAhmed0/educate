@@ -9,8 +9,8 @@ const CreateClassroom = () => {
         <Layout>
             <section className="joining-class overflow-hidden relative">
                 <div className="container h-[100%]">
-                    <div className="flex justify-between lg:h-[90vh] sm:h-[80vh] h-[30vh] flex-row py-[30px]">
-                        <div className="w-[45%] flex lg:items-center items-end">
+                    <div className="flex justify-between md:flex-row flex-col lg:h-[90vh] sm:h-[80vh] h-[30vh] flex-row py-[30px]">
+                        <div className="w-[45%] flex   justify-center flex-col">
                             <h1 className="capitalize text-[#6200ff] lg:text-[60px] md:text-[30px] text-[24px] font-semibold lg:leading-[70px] md:leading-[40px] leading-[30px] mb-[40px]"
                                 data-aos="fade-right"
                                 data-aos-delay="200"
@@ -19,6 +19,14 @@ const CreateClassroom = () => {
                             >
                                 Join <br /> Classroom
                             </h1>
+                            <div className="max-w-[600px] ">
+                            <div className="mb-[15px] relative"><TextField type="text" id="outlined-basic" helperText="ID Shared by your teacher" label="Enter Classroom ID" variant="outlined" className="w-[100%] " /> <span className="absolute bottom-0 right-[10px] text-[14px] text-[#6200ff] ">10/10</span></div>
+                            <div>
+                                <Button variant="contained" fullWidth="true">
+                                    <span className="fim capitalize block p-[3px]">Create Classroom</span>
+                                </Button>
+                            </div>
+                        </div>
                         </div>
                         <div className="w-[55%] pt-[30px] md:pt-[0] bg-[pin k] h-[100% ] flex justify-center items-center">
                             <img

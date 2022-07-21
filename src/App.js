@@ -17,15 +17,19 @@ function App() {
           <Route exact path="/features" element={<Features />} />
           <Route exact path="/pricing" element={<Pricing />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/create-class" element={<CreateClassroom />} />
+          <Route exact path="/join-class" element={<JoinClass />} />
+          <Route exact path="/about" element={<AboutYou />} />
         </Routes>
       </Router>
+      {/* <AboutYou /> */}
+      {/* <CreateClassroom /> */}
+      {/* <JoinClass /> */}
+      {/* <AboutYou /> */}
       {/* <Login /> */}
       {/* <Home /> */}
       {/* <Features /> */}
       {/* <Pricing /> */}
-      {/* <CreateClassroom /> */}
-      {/* <JoinClass /> */}
-      {/* <AboutYou /> */}
     </>
   );
 }
