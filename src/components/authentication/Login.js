@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase-config";
+import { auth, signInWithGoogle } from "../../firebase-config";
 import Button from "@mui/material/Button";
+import googleLogo from "../../assets/images/logo/google.png";
+import Layout from "../layout/Layout";
 
 const Login = () => {
   const [registerEmail, set_registerEmail] = useState("");
   const [registerPassword, set_registerPassword] = useState("");
   const [loginEmail, set_loginEmail] = useState("");
   const [loginPassword, set_loginPassword] = useState("");
-
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -29,38 +30,30 @@ const Login = () => {
   const logout = async () => {};
   return (
     <>
-      <div className="min-h-[100vh] flex justify-center items-center gap-x-[10px]">
-        <div className="w-[300px] p-[20px] border-[1px] border-gray-300 rounded-[10px]">
-          <h1 className="text-4xl text-center mb-[20px]">Register</h1>
-          <input
-            placeholder="Email"
-            onChange={(event) => set_registerEmail(event.target.value)}
-          />
-          <input
-            placeholder="Password"
-            onChange={(event) => set_registerPassword(event.target.value)}
-          />
-          <button onClick={() => register()}>Create User</button>
-        </div>
-        <div className="w-[300px] p-[20px] border-[1px] border-gray-300 rounded-[10px]">
+    <Layout>
+
+   
+      <div className="min-h-[60vh] flex justify-center items-center gap-x-[10px]">
+        
+
+        <div className="w-[450px] p-[35px] border-[1px] border-gray-300 rounded-[10px]">
           <h1 className="text-4xl text-center mb-[20px]">Login</h1>
-          <input
-            placeholder="Email"
-            onChange={(event) => set_loginEmail(event.target.value)}
-          />
-          <input
-            placeholder="Password"
-            onChange={(event) => set_loginPassword(event.target.value)}
-          />
-          <button>Login</button>
+          <button
+            onClick={() => signInWithGoogle()}
+            className="text-[18px] w-[100%] py-[10px] border-[1px] border-gray-300 bg-[#fff] text-gray-700 flex justify-center mt-4 items-center"
+          >
+            <img src={googleLogo} className="w-[50px] mr-3"/>
+            Login with Google
+          </button>
         </div>
       </div>
 
-      <div className="text-center pb-[50px]">
+      {/* <div className="text-center pb-[50px]">
         <h4>User Logged In:</h4>
 
         <button>Sign Out</button>
-      </div>
+      </div> */}
+    </Layout>
     </>
   );
 };
