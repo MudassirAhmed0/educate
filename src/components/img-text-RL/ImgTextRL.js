@@ -1,12 +1,12 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
-import teachingAppDashboard from "../../assets/images/teaching-app-dashboard.png";
+import teachingAppDashboard from "../../assets/images/educational-webinar.png";
 import "./ImgTextRL.css";
 
 const ImgTextRL = ({bgGray, bgWhite}) => {
   return (
-    <section className={`min-h-[100vh] py-[40px] overflow-hidden  ${bgGray ? "bg-gray" : ""} ${bgWhite ? "bg-white" : ""}`}>
+    <section className={`min-h-[100vh] py-[40px] overflow-hidden flex items-center ${bgGray ? "bg-gray" : ""} ${bgWhite ? "bg-white" : ""}`}>
       <div className="container h-[100%]">
         <div className="flex justify-between lg:flex-row flex-col items-center h-[100%]">
           <div className="lg:w-[45%] w-[100%] flex justify-center items-center lg:pr-[100px] pr-[0]">

@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CancelIcon from "@mui/icons-material/Cancel";
 import teacherPng from "../assets/images/teacher.png";
 import studentPng from "../assets/images/student.png";
-import { addDoc, collection } from "firebase/firestore";
-import { dbase } from "../firebase-config";
+import { addDoc, setDoc, collection, doc, getDocs } from "firebase/firestore";
+import { dbase } from "../firebase";
+import { onAuthStateChanged, updateProfile } from "firebase/auth"
+import { auth } from "../firebase/auth";
+// import { useNavigate } from "react-router-dom";
+import { useSession } from "../firebase/UserProvider";
 
 const AboutYou = () => {
-    
+  // const navigate = useNavigate();
   const [yourName, set_yourName] = useState("");
   const [userType, set_userType] = useState("teacher");
+  const [user, setUser] = useState({});
+
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [exists, setExists] = useState({});
+
+  const [enterName, set_enterName] = useState(false);
+  const [chooseUserType, set_chooseUserType] = useState(false);
+
+  const userSession = useSession()
 
   const teacherStudentcheck = (type) => {
     if (type == "teacher") {
@@ -22,54 +36,70 @@ const AboutYou = () => {
     }
   };
 
-  const submitUser = () => {
+  const submitUser = async () => {
+    console.log("user.uid", user.uid);
+
     console.log("userType", userType);
     console.log("yourName", yourName);
     if (userType == "") {
-      alert("Please use user type");
+      set_chooseUserType(true);
+    } else {
+      set_chooseUserType(false);
     }
     if (yourName == "") {
-      alert("Please enter your name");
+      set_enterName(true);
+    } else {
+      set_enterName(false);
     }
     if (userType !== "" && yourName !== "") {
       if (userType == "teacher") {
         let teacherObj = {
-            id: localStorage.getItem("id"),
-            name: yourName,
-            phone: localStorage.getItem('phone'),
-            email: localStorage.getItem('email'),
-        }
-        console.log("teacherObj",teacherObj)
+          id: userSession?.user?.uid,
+          name: yourName,
+          status: 'teacher',
+          phone: user?.phoneNumber || "",
+          email: user?.email || "",
+          classroomIds: [],
 
-        const teacherData = collection(dbase,'teacher');
-        addDoc(teacherData, {teacherObj})
-        .then(response=> {
-            console.log("res",response);
+        }
+        updateProfile(auth.currentUser, {
+          displayName: yourName
+        }).then((res) => console.log(res)).catch(err => console.log(err))
+        const teacherRef = doc(dbase, "Teachers", userSession.user.uid)
+        setDoc(teacherRef, teacherObj)
+          .then(() => {
             window.location.href = "/create-class";
-        })
-        .catch (error => {
-            console.log("error",error);
-        })
+
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
 
       }
       if (userType == "student") {
         let studentObj = {
-            id: localStorage.getItem("id"),
-            name: yourName,
-            phone: localStorage.getItem('phone'),
-            email: localStorage.getItem('email'),
+          id: userSession?.user?.uid,
+          name: yourName,
+          status: 'student',
+          classroomIds: [],
+          phone: user?.phoneNumber || "",
+          email: user?.email || "",
         }
-        console.log("studentObj",studentObj)
 
-        const studentData = collection(dbase,'student');
-        addDoc(studentData, {studentObj})
-        .then(response=> {
-            console.log("res",response);
+        updateProfile(auth.currentUser, {
+          displayName: yourName
+        }).then((res) => console.log(res)).catch(err => console.log(err))
+
+        const studentRef = doc(dbase, "Students", userSession.user.uid)
+        setDoc(studentRef, studentObj)
+          .then(() => {
             window.location.href = "/join-class";
-        })
-        .catch (error => {
-            console.log("error",error);
-        })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
 
 
       }
@@ -79,11 +109,12 @@ const AboutYou = () => {
   return (
     <Layout>
       <section className={`min-h-[100vh] py-[40px] overflow-hidden bg-gray`}>
+
         <div className="container h-[100%]">
           <div className="flex justify-between lg:flex-col flex-col items-center h-[100%]">
             <div className="w-[100%] lg:text-center text-left">
               <h3 className="text-[24px] inline-block mb-[10px] text-[#6200ff] relative">
-                Tell Us About You{" "}
+                Tell Us About You
                 <span className="absolute left-[0] bottom-[0] w-[55px] h-[2px] bg-[#6200ff] "></span>
               </h3>
               <p className="text-gray-500">To Get Started Need little Info</p>
@@ -94,7 +125,10 @@ const AboutYou = () => {
               </h3>
               <div className="flex lg:gap-x-[1.5%] gap-x-[2.5%]">
                 <div
-                  className={`lg:w-[49%] w-[48%] bg-white border rounded-lg ${userType == "teacher"? "border-gray-600":"border-gray-200"} overflow-hidden`}
+                  className={`lg:w-[49%] w-[48%] bg-white border rounded-lg cursor-pointer hover:opacity-[.8] transition-all ${userType == "teacher"
+                      ? "border-gray-600"
+                      : "border-gray-200"
+                    } overflow-hidden`}
                   onClick={() => teacherStudentcheck("teacher")}
                 >
                   <div className="img">
@@ -109,7 +143,10 @@ const AboutYou = () => {
                 </div>
 
                 <div
-                  className={`lg:w-[49%] w-[48%] bg-white border rounded-lg ${userType !== "student"? "border-gray-200":"border-gray-600"} overflow-hidden`}
+                  className={`lg:w-[49%] w-[48%] bg-white border rounded-lg cursor-pointer hover:opacity-[.8] transition-all ${userType !== "student"
+                      ? "border-gray-200"
+                      : "border-gray-600"
+                    } overflow-hidden`}
                   onClick={() => teacherStudentcheck("student")}
                 >
                   <div className="img">
@@ -143,6 +180,22 @@ const AboutYou = () => {
                     <CancelIcon />
                   </span>
                 </div>
+                <ul>
+                  {enterName ? (
+                    <li className="text-[13px] text-red-600">
+                      Please enter your 'Name'
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                  {chooseUserType ? (
+                    <li className="text-[13px] text-red-600">
+                      Please choose 'User Type'
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                </ul>
                 <div className="w-[200px] mx-auto">
                   <Button
                     variant="contained"
@@ -159,6 +212,7 @@ const AboutYou = () => {
             </div>
           </div>
         </div>
+
       </section>
     </Layout>
   );

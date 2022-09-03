@@ -5,9 +5,11 @@ import teaching from "../../assets/images/teaching.png";
 
 const FeatureCard = ({ data }) => {
   return (
-    <div className="max-w-[345px] lg:w-[32%] sm:w-[49%] mb-[50px]">
-      <img src={data.img} />
-      <h3 className="fib py-[20px] text-[24px] text-[#000000c2]">{data.title}</h3>
+    <div className="sm:w-[32%] w-[49%] mb-[50px]">
+      <img className="w-[100%] h-[190px] sm:h-[230px] md:h-[280px] object-contain" src={data.img} />
+      <h3 className="fib py-[10px] sm:py-[20px] text-[20px] sm:text-[24px] leading-[20px] sm:leading-[30px] text-[#000000c2]">
+        {data.title}
+      </h3>
       <p className="fir text-[14px]">{data.des}</p>
     </div>
   );

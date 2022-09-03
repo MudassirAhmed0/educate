@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../components/hero/Hero";
 import Layout from "../components/layout/Layout";
 import Video from "../components/video/Video";
@@ -11,6 +11,18 @@ import GetApp from "../components/get-app/GetApp";
 import ContactTeam from "../components/contact-team/ContactTeam";
 
 const Home = () => {
+
+  useEffect(() => {
+    let scrollValue = document
+      .getElementById("contact-team-section")
+      .getBoundingClientRect().top;
+    if (window.location.hash) {
+      setTimeout(() => {
+        window.scroll(0, scrollValue + 570);
+      }, 1000);
+    }
+  }, []);
+
   return (
     <Layout>
       <Hero />

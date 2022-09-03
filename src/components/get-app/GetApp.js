@@ -1,7 +1,7 @@
 import React from "react";
 import getAppPng from "../../assets/images/getApp.png";
 import appStore from "../../assets/images/appStore.png";
-import googlePlay from "../../assets/images/googlePlay.png";
+import googlePlay from "../../assets/images/google play.png";
 
 const GetApp = ({ bgGray, bgWhite }) => {
   return (
@@ -18,10 +18,10 @@ const GetApp = ({ bgGray, bgWhite }) => {
               Get The <br /> Teaching App
             </h3>
             <div>
-                <p className="text-[20px] mb-[35px]">Downloag the app now</p>
+                <p className="text-[20px] mb-[35px]">Download the app now</p>
                 <div className="flex">
-                    <a className="mr-[10px]"><img src={appStore} alt="" /></a>
-                    <a><img src={googlePlay} alt="" /></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.educate.theteachingapp" className="mr-[10px]"><img src={appStore} alt=""  width="250" height="250"/></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.educate.theteachingapp"><img src={googlePlay} alt="" width="250" height="250" /></a>
                 </div>
             </div>
           </div>

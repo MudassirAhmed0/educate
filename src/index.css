@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: inter-regular;
   src: url(./assets/fonts/Inter/Inter-Regular.ttf);
@@ -76,16 +80,18 @@ input:checked ~ .check-bg {
   background-color: #6200ff;
 }
 
-.container {
+/* .container {
   margin: 0 auto;
 }
 @media (max-width:1620px) {
   .container {
-    padding: 0 50px;
+    padding-left:  50px;
+    padding-right:  50px;
   }
 }
 @media (max-width:700px) {
   .container {
-    padding: 0 25px;
+    padding-left:  25px;
+    padding-right:  25px;
   }
-}
+} */

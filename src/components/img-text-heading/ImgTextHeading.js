@@ -1,12 +1,12 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoneIcon from "@mui/icons-material/Done";
-import teachingApp from "../../assets/images/teaching-app.png";
+import teachingApp from "../../assets/images/online-webinar.png";
 import "./ImgTextHeading.css";
 
 const ImgTextHeading = () => {
   return (
-    <section className="min-h-[100vh] py-[40px] overflow-hidden">
+    <section className="min-h-[100vh] py-[40px] overflow-hidden flex items-center">
       <div className="container h-[100%]">
         <h1 className="fib lg:text-[45px] text-[35px] my-[10px] text-center lg:py-[30px] py-[5px]"
           data-aos="fade-up"
@@ -23,30 +23,30 @@ const ImgTextHeading = () => {
             data-aos-easing="ease-in-sine"
             data-aos-duration="700"
           >
-            <h6 className="fib lg:text-[22px] text-[16px] text-blue uppercase">create</h6>
+            <h6 className="fib lg:text-[22px] text-[16px] text-blue uppercase">Create</h6>
             <h3 className="fib lg:text-[36px] text-[25px] capitalize pb-[5px]">
-              Premium Live Sessions
+             Free Unlimited Live Classes
             </h3>
             <ul>
               <li className="fir flex lg:text-[20px] text-[17px] py-[7px]">
                 <DoneIcon color="primary" className="mr-[7px] scale-[.8]" />
-                Native Zoom SDK integration - Branded environment
+                Conduct Live Classes with live chat, poll and many more smart features.
               </li>
               <li className="fir flex lg:text-[20px] text-[17px] py-[7px]">
                 <DoneIcon color="primary" className="mr-[7px] scale-[.8]" />
-                Zoom business licenses for all instructors
+                Can add unlimited students and add co-teacher
               </li>
               <li className="fir flex lg:text-[20px] text-[17px] py-[7px]">
                 <DoneIcon color="primary" className="mr-[7px] scale-[.8]" />
-                Automatic attendance
+                Automatic attendance with smart AI
               </li>
               <li className="fir flex lg:text-[20px] text-[17px] py-[7px]">
                 <DoneIcon color="primary" className="mr-[7px] scale-[.8]" />
-                Encrypted recordings for live sessions
+                Encrypted recordings for live classes and stream anywhere you want
               </li>
               <li className="fir flex lg:text-[20px] text-[17px] py-[7px]">
                 <DoneIcon color="primary" className="mr-[7px] scale-[.8]" />
-                One click live class - no link sharing
+                One Click live class
               </li>
             </ul>
           </div>
